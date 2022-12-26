@@ -1,8 +1,7 @@
 const errorMiddleware = (err, req, res, next) => {
-  console.log("Hitted....");
-  res.status(err.statusCode).json({
+  res.status(err?.statusCode || 500).json({
     success: false,
-    message: "Error Message",
+    message: err.message || "Internal Server Error",
   });
 };
 
