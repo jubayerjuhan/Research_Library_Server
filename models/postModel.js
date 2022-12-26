@@ -4,6 +4,10 @@ const schema = mongoose.Schema;
 
 const postSchema = new schema(
   {
+    title: {
+      type: String,
+      required: true,
+    },
     author: {
       type: String,
       required: true,
@@ -20,4 +24,4 @@ const postSchema = new schema(
   { timestamps: true }
 );
 
-const postModel = mongoose.model("post", postSchema);
+export default mongoose.model("post", postSchema);

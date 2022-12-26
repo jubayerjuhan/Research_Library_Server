@@ -2,6 +2,8 @@ import express from "express";
 import { connectDatabase } from "./middlewares/connectDatabase.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import userRoute from "./routes/useRoute.js";
+import postRoute from "./routes/postRoute.js";
+
 const app = express();
 const PORT = 4000;
 
@@ -21,6 +23,7 @@ app.post("/", (req, res, next) => {
 
 // adding all routes
 app.use("/user", userRoute);
+app.use("/post", postRoute);
 
 app.listen(PORT, () => {
   console.log(`App Is Listerning To Port ${PORT}...`);
