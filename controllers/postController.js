@@ -14,7 +14,7 @@ export const createPost = catchAsyncError(async (req, res, next) => {
 
 // get all posts
 export const getAllPosts = catchAsyncError(async (req, res, next) => {
-  const posts = await postModel.find();
+  const posts = await postModel.find().populate("author");
 
   res.status(200).json({
     success: true,
@@ -29,5 +29,16 @@ export const getSinglePost = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     post,
+  });
+});
+// get single post
+export const getPostByUser = catchAsyncError(async (req, res, next) => {
+  const posts = await postModel
+    .find({ author: req.params.id })
+    .populate("author");
+
+  res.status(200).json({
+    success: true,
+    posts,
   });
 });

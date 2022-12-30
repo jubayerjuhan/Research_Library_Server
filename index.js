@@ -3,11 +3,13 @@ import { connectDatabase } from "./middlewares/connectDatabase.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import userRoute from "./routes/useRoute.js";
 import postRoute from "./routes/postRoute.js";
+import cors from "cors";
 
 const app = express();
 const PORT = 4000;
 
 // add express bodyparser
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));

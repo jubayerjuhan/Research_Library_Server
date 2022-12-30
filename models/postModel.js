@@ -13,6 +13,9 @@ const postSchema = new schema(
       required: true,
       ref: "user",
     },
+    coverImage: {
+      type: String,
+    },
     description: {
       type: String,
     },

@@ -4,6 +4,9 @@ import { sendJwtToken } from "../middlewares/sendJwtToken.js";
 import userModel from "../models/userModel.js";
 
 export const registerUser = catchAsyncError(async (req, res, next) => {
+  const existingUser = await userModel.find({ email: req.body?.email });
+  if (existingUser[0])
+    return next(new Errorhandler("User Already Exists", 401));
   const user = await userModel.create(req.body);
 
   sendJwtToken(user, res);
