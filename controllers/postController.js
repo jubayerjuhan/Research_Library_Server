@@ -1,6 +1,7 @@
 import { catchAsyncError } from "../middlewares/catchAsyncErrors.js";
 import postModel from "../models/postModel.js";
 import Errorhandler from "../middlewares/ErrorHandler.js";
+import { PostSearch } from "../middlewares/apifeature.js";
 
 export const createPost = catchAsyncError(async (req, res, next) => {
   const post = await postModel.create(req.body);
@@ -14,11 +15,13 @@ export const createPost = catchAsyncError(async (req, res, next) => {
 
 // get all posts
 export const getAllPosts = catchAsyncError(async (req, res, next) => {
-  const posts = await postModel.find().populate("author");
+  const posts = await (
+    await new PostSearch(postModel).getPost()
+  ).search(req.query.q);
 
   res.status(200).json({
     success: true,
-    posts: posts.reverse(),
+    posts: posts.allPosts.reverse(),
   });
 });
 
@@ -31,6 +34,7 @@ export const getSinglePost = catchAsyncError(async (req, res, next) => {
     post,
   });
 });
+
 // get single post
 export const getPostByUser = catchAsyncError(async (req, res, next) => {
   const posts = await postModel
