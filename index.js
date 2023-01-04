@@ -4,7 +4,7 @@ import errorMiddleware from "./middlewares/errorMiddleware.js";
 import userRoute from "./routes/useRoute.js";
 import postRoute from "./routes/postRoute.js";
 import cors from "cors";
-
+import "dotenv/config";
 const app = express();
 const PORT = 4000;
 
